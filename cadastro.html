@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Cadastro de Veículos</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1.2rem;
+      color: var(--primary);
+    }
+
+    /* Formulário */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    input {
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .btn-submit {
+      grid-column: 1 / -1;
+      padding: 0.85rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Tabela */
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .btn-delete {
+      padding: 0.4rem 0.8rem;
+      background-color: var(--danger);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-delete:hover {
+      background-color: var(--danger-hover);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Gestão de Veículos</h1>
+      <p>Cadastre e gerencie a frota de veículos da sua garagem</p>
+    </header>
+
+    <!-- Formulário de Cadastro -->
+    <section class="card">
+      <h2>Novo Veículo</h2>
+      <form action="/cadastrar" method="POST" class="form-grid">
+        <div class="form-group">
+          <label for="marca">Marca</label>
+          <input type="text" id="marca" name="marca" placeholder="Ex: Toyota" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modelo">Modelo</label>
+          <input type="text" id="modelo" name="modelo" placeholder="Ex: Corolla" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ano">Ano</label>
+          <input type="number" id="ano" name="ano" placeholder="Ex: 2023" min="1900" max="2027" required>
+        </div>
+
+        <div class="form-group">
+          <label for="placa">Placa</label>
+          <input type="text" id="placa" name="placa" placeholder="Ex: ABC-1234" required>
+        </div>
+
+        <div class="form-group">
+          <label for="preco">Preço (R$)</label>
+          <input type="number" step="0.01" id="preco" name="preco" placeholder="Ex: 120000.00" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Cadastrar Veículo</button>
+      </form>
+    </section>
+
+    <!-- Lista de Veículos -->
+    <section class="card">
+      <h2>Veículos Cadastrados</h2>
+      <div class="table-responsive">
+        {% if veiculos %}
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Ano</th>
+              <th>Placa</th>
+              <th>Preço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for v in veiculos %}
+            <tr>
+              <td>#{{ v[0] }}</td>
+              <td><strong>{{ v[2] }}</strong></td>
+              <td>{{ v[1] }}</td>
+              <td>{{ v[3] }}</td>
+              <td>{{ v[4] }}</td>
+              <td>R$ {{ "%.2f"|format(v[5]) }}</td>
+              <td>
+                <a href="/deletar/{{ v[0] }}" class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p class="empty-state">Nenhum veículo cadastrado até o momento.</p>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
