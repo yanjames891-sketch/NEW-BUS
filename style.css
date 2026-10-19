@@ -1,0 +1,23 @@
+div {
+    margin: 20px 0;
+    background-color: greenyellow;
+    padding: 10px;
+
+}
+div.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+:double-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
